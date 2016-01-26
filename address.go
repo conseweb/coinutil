@@ -8,10 +8,10 @@ import (
 	"encoding/hex"
 	"errors"
 
-	"github.com/btcsuite/btcd/btcec"
-	"github.com/btcsuite/btcd/chaincfg"
-	"github.com/btcsuite/golangcrypto/ripemd160"
 	"github.com/conseweb/coinutil/base58"
+	"github.com/conseweb/golangcrypto/ripemd160"
+	"github.com/conseweb/stcd/btcec"
+	"github.com/conseweb/stcd/chaincfg"
 )
 
 var (

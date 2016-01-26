@@ -9,8 +9,8 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/btcsuite/btcd/wire"
 	"github.com/conseweb/coinutil/bloom"
+	"github.com/conseweb/stcd/wire"
 )
 
 // This example demonstrates how to create a new bloom filter, add a transaction

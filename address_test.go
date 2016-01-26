@@ -11,10 +11,10 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/btcsuite/btcd/chaincfg"
-	"github.com/btcsuite/btcd/wire"
-	"github.com/btcsuite/golangcrypto/ripemd160"
 	"github.com/conseweb/coinutil"
+	"github.com/conseweb/golangcrypto/ripemd160"
+	"github.com/conseweb/stcd/chaincfg"
+	"github.com/conseweb/stcd/wire"
 )
 
 // invalidNet is an invalid bitcoin network.

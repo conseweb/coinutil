@@ -9,9 +9,9 @@ import (
 	"encoding/hex"
 	"testing"
 
-	"github.com/btcsuite/btcd/wire"
 	"github.com/conseweb/coinutil"
 	"github.com/conseweb/coinutil/bloom"
+	"github.com/conseweb/stcd/wire"
 )
 
 func TestMerkleBlock3(t *testing.T) {
