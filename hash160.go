@@ -7,13 +7,8 @@ package coinutil
 import (
 	"hash"
 
-<<<<<<< HEAD
 	"github.com/btcsuite/golangcrypto/ripemd160"
 	"github.com/conseweb/fastsha256"
-=======
-	"github.com/btcsuite/fastsha256"
-	"github.com/btcsuite/golangcrypto/ripemd160"
->>>>>>> 9f1e172e65222676bc8b0dd85a5ea803f1dcecd8
 )
 
 // Calculate the hash of hasher over buf.
