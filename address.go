@@ -2,7 +2,7 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-package btcutil
+package coinutil
 
 import (
 	"encoding/hex"
@@ -10,8 +10,8 @@ import (
 
 	"github.com/btcsuite/btcd/btcec"
 	"github.com/btcsuite/btcd/chaincfg"
-	"github.com/btcsuite/btcutil/base58"
 	"github.com/btcsuite/golangcrypto/ripemd160"
+	"github.com/conseweb/coinutil/base58"
 )
 
 var (

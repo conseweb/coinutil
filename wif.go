@@ -2,7 +2,7 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-package btcutil
+package coinutil
 
 import (
 	"bytes"
@@ -11,7 +11,7 @@ import (
 	"github.com/btcsuite/btcd/btcec"
 	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/btcsuite/btcd/wire"
-	"github.com/btcsuite/btcutil/base58"
+	"github.com/conseweb/coinutil/base58"
 )
 
 // ErrMalformedPrivateKey describes an error where a WIF-encoded private

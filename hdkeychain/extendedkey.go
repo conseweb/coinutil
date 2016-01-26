@@ -21,8 +21,8 @@ import (
 	"github.com/btcsuite/btcd/btcec"
 	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/btcsuite/btcd/wire"
-	"github.com/btcsuite/btcutil"
-	"github.com/btcsuite/btcutil/base58"
+	"github.com/conseweb/coinutil"
+	"github.com/conseweb/coinutil/base58"
 )
 
 const (
@@ -301,7 +301,7 @@ func (k *ExtendedKey) Child(i uint32) (*ExtendedKey, error) {
 
 	// The fingerprint of the parent for the derived child is the first 4
 	// bytes of the RIPEMD160(SHA256(parentPubKey)).
-	parentFP := btcutil.Hash160(k.pubKeyBytes())[:4]
+	parentFP := coinutil.Hash160(k.pubKeyBytes())[:4]
 	return newExtendedKey(k.version, childKey, childChainCode, parentFP,
 		k.depth+1, i, isPrivate), nil
 }
@@ -354,9 +354,9 @@ func (k *ExtendedKey) ECPrivKey() (*btcec.PrivateKey, error) {
 
 // Address converts the extended key to a standard bitcoin pay-to-pubkey-hash
 // address for the passed network.
-func (k *ExtendedKey) Address(net *chaincfg.Params) (*btcutil.AddressPubKeyHash, error) {
-	pkHash := btcutil.Hash160(k.pubKeyBytes())
-	return btcutil.NewAddressPubKeyHash(pkHash, net)
+func (k *ExtendedKey) Address(net *chaincfg.Params) (*coinutil.AddressPubKeyHash, error) {
+	pkHash := coinutil.Hash160(k.pubKeyBytes())
+	return coinutil.NewAddressPubKeyHash(pkHash, net)
 }
 
 // String returns the extended key as a human-readable base58-encoded string.

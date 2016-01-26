@@ -1,11 +1,11 @@
 txsort
 ======
 
-[![Build Status](http://img.shields.io/travis/btcsuite/btcutil.svg)]
-(https://travis-ci.org/btcsuite/btcutil) [![ISC License]
+[![Build Status](http://img.shields.io/travis/btcsuite/coinutil.svg)]
+(https://travis-ci.org/btcsuite/coinutil) [![ISC License]
 (http://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
 [![GoDoc](http://img.shields.io/badge/godoc-reference-blue.svg)]
-(http://godoc.org/github.com/btcsuite/btcutil/txsort)
+(http://godoc.org/github.com/conseweb/coinutil/txsort)
 
 Package txsort provides the transaction sorting according to BIPLI01.
 
@@ -24,7 +24,7 @@ A comprehensive suite of tests is provided to ensure proper functionality.
 ## Installation and Updating
 
 ```bash
-$ go get -u github.com/btcsuite/btcutil/txsort
+$ go get -u github.com/conseweb/coinutil/txsort
 ```
 
 ## License
