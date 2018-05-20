@@ -2,14 +2,14 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-package coinutil_test
+package coinutil
 
 import (
 	"testing"
 
+	"github.com/btcsuite/btcd/btcec"
+	"github.com/btcsuite/btcd/chaincfg"
 	. "github.com/conseweb/coinutil"
-	"github.com/conseweb/stcd/btcec"
-	"github.com/conseweb/stcd/chaincfg"
 )
 
 func TestEncodeDecodeWIF(t *testing.T) {

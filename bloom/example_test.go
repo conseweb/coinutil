@@ -1,16 +1,17 @@
-// Copyright (c) 2014 The btcsuite developers
+// Copyright (c) 2014-2016 The btcsuite developers
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-package bloom_test
+package bloom
 
 import (
 	"fmt"
 	"math/rand"
 	"time"
 
+	"github.com/btcsuite/btcd/chaincfg/chainhash"
+	"github.com/btcsuite/btcd/wire"
 	"github.com/conseweb/coinutil/bloom"
-	"github.com/conseweb/stcd/wire"
 )
 
 // This example demonstrates how to create a new bloom filter, add a transaction
@@ -28,15 +29,15 @@ func ExampleNewFilter() {
 	// trasaction is the first transaction in block 310,000 of the main
 	// bitcoin block chain.
 	txHashStr := "fd611c56ca0d378cdcd16244b45c2ba9588da3adac367c4ef43e808b280b8a45"
-	txHash, err := wire.NewShaHashFromStr(txHashStr)
+	txHash, err := chainhash.NewHashFromStr(txHashStr)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	filter.AddShaHash(txHash)
+	filter.AddHash(txHash)
 
 	// Show that the filter matches.
-	matches := filter.Matches(txHash.Bytes())
+	matches := filter.Matches(txHash[:])
 	fmt.Println("Filter Matches?:", matches)
 
 	// Output:

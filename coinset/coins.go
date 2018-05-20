@@ -1,3 +1,7 @@
+// Copyright (c) 2014-2017 The btcsuite developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
+
 package coinset
 
 import (
@@ -5,13 +9,14 @@ import (
 	"errors"
 	"sort"
 
+	"github.com/btcsuite/btcd/chaincfg/chainhash"
+	"github.com/btcsuite/btcd/wire"
 	"github.com/conseweb/coinutil"
-	"github.com/conseweb/stcd/wire"
 )
 
 // Coin represents a spendable transaction outpoint
 type Coin interface {
-	Hash() *wire.ShaHash
+	Hash() *chainhash.Hash
 	Index() uint32
 	Value() coinutil.Amount
 	PkScript() []byte
@@ -119,8 +124,8 @@ func (cs *CoinSet) removeElement(e *list.Element) Coin {
 
 // NewMsgTxWithInputCoins takes the coins in the CoinSet and makes them
 // the inputs to a new wire.MsgTx which is returned.
-func NewMsgTxWithInputCoins(inputCoins Coins) *wire.MsgTx {
-	msgTx := wire.NewMsgTx()
+func NewMsgTxWithInputCoins(txVersion int32, inputCoins Coins) *wire.MsgTx {
+	msgTx := wire.NewMsgTx(txVersion)
 	coins := inputCoins.Coins()
 	msgTx.TxIn = make([]*wire.TxIn, len(coins))
 	for i, coin := range coins {
@@ -198,10 +203,8 @@ func (s MinNumberCoinSelector) CoinSelect(targetValue coinutil.Amount, coins []C
 	sortedCoins := make([]Coin, 0, len(coins))
 	sortedCoins = append(sortedCoins, coins...)
 	sort.Sort(sort.Reverse(byAmount(sortedCoins)))
-	return (&MinIndexCoinSelector{
-		MaxInputs:       s.MaxInputs,
-		MinChangeAmount: s.MinChangeAmount,
-	}).CoinSelect(targetValue, sortedCoins)
+
+	return MinIndexCoinSelector(s).CoinSelect(targetValue, sortedCoins)
 }
 
 // MaxValueAgeCoinSelector is a CoinSelector that attempts to construct
@@ -222,10 +225,8 @@ func (s MaxValueAgeCoinSelector) CoinSelect(targetValue coinutil.Amount, coins [
 	sortedCoins := make([]Coin, 0, len(coins))
 	sortedCoins = append(sortedCoins, coins...)
 	sort.Sort(sort.Reverse(byValueAge(sortedCoins)))
-	return (&MinIndexCoinSelector{
-		MaxInputs:       s.MaxInputs,
-		MinChangeAmount: s.MinChangeAmount,
-	}).CoinSelect(targetValue, sortedCoins)
+
+	return MinIndexCoinSelector(s).CoinSelect(targetValue, sortedCoins)
 }
 
 // MinPriorityCoinSelector is a CoinSelector that attempts to construct
@@ -354,8 +355,8 @@ type SimpleCoin struct {
 var _ Coin = &SimpleCoin{}
 
 // Hash returns the hash value of the transaction on which the Coin is an output
-func (c *SimpleCoin) Hash() *wire.ShaHash {
-	return c.Tx.Sha()
+func (c *SimpleCoin) Hash() *chainhash.Hash {
+	return c.Tx.Hash()
 }
 
 // Index returns the index of the output on the transaction which the Coin represents

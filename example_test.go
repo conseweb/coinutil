@@ -1,4 +1,4 @@
-package coinutil_test
+package coinutil
 
 import (
 	"fmt"

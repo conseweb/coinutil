@@ -1,35 +1,40 @@
-package coinset_test
+// Copyright (c) 2014-2016 The btcsuite developers
+// Use of this source code is governed by an ISC
+// license that can be found in the LICENSE file.
+
+package coinset
 
 import (
 	"bytes"
+	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
 	"testing"
 
+	"github.com/btcsuite/btcd/chaincfg/chainhash"
 	"github.com/btcsuite/btcd/wire"
 	"github.com/conseweb/coinutil"
 	"github.com/conseweb/coinutil/coinset"
-	"github.com/conseweb/fastsha256"
 )
 
 type TestCoin struct {
-	TxHash     *wire.ShaHash
+	TxHash     *chainhash.Hash
 	TxIndex    uint32
 	TxValue    coinutil.Amount
 	TxNumConfs int64
 }
 
-func (c *TestCoin) Hash() *wire.ShaHash    { return c.TxHash }
-func (c *TestCoin) Index() uint32          { return c.TxIndex }
+func (c *TestCoin) Hash() *chainhash.Hash { return c.TxHash }
+func (c *TestCoin) Index() uint32         { return c.TxIndex }
 func (c *TestCoin) Value() coinutil.Amount { return c.TxValue }
-func (c *TestCoin) PkScript() []byte       { return nil }
-func (c *TestCoin) NumConfs() int64        { return c.TxNumConfs }
-func (c *TestCoin) ValueAge() int64        { return int64(c.TxValue) * c.TxNumConfs }
+func (c *TestCoin) PkScript() []byte      { return nil }
+func (c *TestCoin) NumConfs() int64       { return c.TxNumConfs }
+func (c *TestCoin) ValueAge() int64       { return int64(c.TxValue) * c.TxNumConfs }
 
 func NewCoin(index int64, value coinutil.Amount, numConfs int64) coinset.Coin {
-	h := fastsha256.New()
+	h := sha256.New()
 	h.Write([]byte(fmt.Sprintf("%d", index)))
-	hash, _ := wire.NewShaHash(h.Sum(nil))
+	hash, _ := chainhash.NewHash(h.Sum(nil))
 	c := &TestCoin{
 		TxHash:     hash,
 		TxIndex:    0,
@@ -105,7 +110,7 @@ func TestCoinSet(t *testing.T) {
 		t.Error("Expected first coin")
 	}
 
-	mtx := coinset.NewMsgTxWithInputCoins(cs)
+	mtx := coinset.NewMsgTxWithInputCoins(wire.TxVersion, cs)
 	if len(mtx.TxIn) != 1 {
 		t.Errorf("Expected only 1 TxIn, got %d", len(mtx.TxIn))
 	}
