@@ -21,13 +21,13 @@ provided.
 ## Installation and Updating
 
 ```bash
-$ go get -u github.com/btcsuite/btcutil
+$ go get -u github.com/conseweb/coinutil
 ```
 
 ## GPG Verification Key
 
 All official release tags are signed by Conformal so users can ensure the code
-has not been tampered with and is coming from the btcsuite developers.  To
+has not been tampered with and is coming from the conseweb developers.  To
 verify the signature perform the following:
 
 - Download the public key from the Conformal website at
